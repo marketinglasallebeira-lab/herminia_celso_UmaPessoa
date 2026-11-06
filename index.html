@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eaf2fb">
+<title>Hermínia &amp; Celso | Convite de Casamento</title>
+<style>
+  :root {
+    --navy:#102e59; --blue:#3976b8; --pale:#eaf2fb; --gold:#b99b69;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; min-height:100vh; color:var(--navy);
+    font-family:Georgia,"Times New Roman",serif;
+    background:
+      radial-gradient(ellipse at 15% 12%,#fff 0,transparent 34%),
+      radial-gradient(ellipse at 85% 88%,#c8dbf0 0,transparent 36%),
+      linear-gradient(145deg,#e6effa,#f8fbff 48%,#dce9f7);
+  }
+  body::before {
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.24;
+    background-image:radial-gradient(#6c91bb 0.6px,transparent .6px);
+    background-size:12px 12px;
+  }
+  .screen {
+    min-height:100svh; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; padding:28px 14px 36px; position:relative;
+  }
+  .envelope-wrap {
+    width:min(100%,390px); position:relative; cursor:pointer;
+    filter:drop-shadow(0 22px 34px #173b6333);
+    transition:transform .55s ease,opacity .45s ease;
+  }
+  .envelope-wrap:hover { transform:translateY(-6px) scale(1.012); }
+  .envelope {
+    display:block; width:100%; height:auto; border:0; padding:0;
+    background:transparent; cursor:pointer; border-radius:4px;
+  }
+  .envelope img { display:block; width:100%; height:auto; }
+  .tap {
+    margin:17px 0 0; font:10px/1.6 Arial,sans-serif; letter-spacing:.22em;
+    text-transform:uppercase; color:#315b89; text-align:center;
+  }
+  .tap::before { content:"✧"; display:block; color:var(--gold); font-size:22px; margin-bottom:5px; }
+  #invitationScreen { display:none; padding-top:22px; }
+  #invitationScreen.visible { display:flex; animation:reveal .85s ease both; }
+  #coverScreen.hidden { display:none; }
+  .invitation-card {
+    width:min(100%,560px); overflow:hidden; border:1px solid #c6d8ec;
+    box-shadow:0 24px 65px #173b6330; background:#fff;
+  }
+  .invitation-card img { display:block; width:100%; height:auto; }
+  .actions {
+    width:min(100%,560px); display:flex; flex-direction:column; align-items:center;
+    gap:13px; padding:21px 12px 0;
+  }
+  .rsvp {
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    width:min(100%,360px); min-height:52px; padding:14px 22px;
+    color:white; background:linear-gradient(135deg,#173b70,#2f6eaa);
+    border:1px solid #b7cce4; border-radius:3px; text-decoration:none;
+    font:11px Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase;
+    box-shadow:0 10px 24px #183f6c35; transition:transform .2s,box-shadow .2s;
+  }
+  .rsvp:hover { transform:translateY(-2px); box-shadow:0 14px 28px #183f6c4a; }
+  .rsvp span { font-size:17px; }
+  .back {
+    border:0; background:transparent; color:#496b91; cursor:pointer;
+    padding:10px 16px; font:10px Arial,sans-serif; letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .back:hover { color:#102e59; text-decoration:underline; }
+  .foot {
+    margin-top:20px; color:#6381a2; font:9px Arial,sans-serif;
+    letter-spacing:.18em; text-align:center;
+  }
+  @keyframes reveal {
+    from { opacity:0; transform:translateY(18px) scale(.99); filter:blur(2px); }
+    to { opacity:1; transform:none; filter:none; }
+  }
+  @media(max-width:480px) {
+    .screen { padding:18px 10px 28px; }
+    .envelope-wrap { width:min(88vw,345px); }
+    #invitationScreen { padding-top:12px; }
+    .actions { padding-top:16px; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <section class="screen" id="coverScreen" aria-label="Envelope do convite">
+      <div class="envelope-wrap">
+        <button class="envelope" id="openInvitation" aria-label="Abrir convite de Hermínia e Celso">
+          <img src="assets/envelope-hc.webp" alt="Envelope azul com flores e selo H&C">
+        </button>
+      </div>
+      <p class="tap">Toque no selo para abrir</p>
+    </section>
+
+    <section class="screen" id="invitationScreen" aria-label="Convite de casamento">
+      <div class="invitation-card">
+        <img src="assets/convite-herminia-celso.webp" alt="Convite de casamento de Hermínia e Celso, sábado 26 de Dezembro de 2026">
+      </div>
+      <div class="actions">
+        <a class="rsvp" href="https://convitin.com.br/herminia-celso/" target="_blank" rel="noopener noreferrer">
+          <span>♥</span> Confirmar presença
+        </a>
+        <button class="back" id="backToCover">Voltar ao envelope</button>
+      </div>
+      <div class="foot">HERMÍNIA &amp; CELSO · 26 DE DEZEMBRO DE 2026</div>
+    </section>
+  </main>
+<script>
+  const cover = document.getElementById('coverScreen');
+  const invitation = document.getElementById('invitationScreen');
+  document.getElementById('openInvitation').addEventListener('click', () => {
+    cover.classList.add('hidden');
+    invitation.classList.add('visible');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+  document.getElementById('backToCover').addEventListener('click', () => {
+    invitation.classList.remove('visible');
+    cover.classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+</script>
+</body>
+</html>
